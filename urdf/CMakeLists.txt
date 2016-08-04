@@ -35,7 +35,7 @@ include_directories(
   ${TINYXML_INCLUDE_DIRS}
   )
 
-add_library(${PROJECT_NAME} SHARED src/model.cpp))
+add_library(${PROJECT_NAME} SHARED src/model.cpp)
 target_link_libraries(${PROJECT_NAME} ${TINYXML_LIBRARIES} ${urdfdom_LIBRARIES})
 
 if(APPLE)
