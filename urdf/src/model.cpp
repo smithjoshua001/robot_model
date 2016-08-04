@@ -36,13 +36,13 @@
 
 #include "urdf/model.h"
 
-#include <ros/ros.h>
+//#include <ros/ros.h>
 
 /* we include the default parser for plain URDF files; 
    other parsers are loaded via plugins (if available) */
 #include <urdf_parser/urdf_parser.h>
-#include <urdf_parser_plugin/parser.h>
-#include <pluginlib/class_loader.h>
+//#include <urdf_parser_plugin/parser.h>
+//#include <pluginlib/class_loader.h>
 
 #include <boost/algorithm/string.hpp>
 #include <boost/scoped_ptr.hpp>
@@ -79,7 +79,7 @@ bool Model::initFile(const std::string& filename)
   }
   else
   {
-    ROS_ERROR("Could not open file [%s] for parsing.",filename.c_str());
+    //ROS_ERROR("Could not open file [%s] for parsing.",filename.c_str());
     return false;
   }
 
@@ -88,29 +88,30 @@ bool Model::initFile(const std::string& filename)
 
 bool Model::initParam(const std::string& param)
 {
-  ros::NodeHandle nh;
+  /**ros::NodeHandle nh;
   std::string xml_string;
   
   // gets the location of the robot description on the parameter server
   std::string full_param;
   if (!nh.searchParam(param, full_param)){
-    ROS_ERROR("Could not find parameter %s on parameter server", param.c_str());
+    //ROS_ERROR("Could not find parameter %s on parameter server", param.c_str());
     return false;
   }
 
   // read the robot description from the parameter server
   if (!nh.getParam(full_param, xml_string)){
-    ROS_ERROR("Could not read parameter %s on parameter server", full_param.c_str());
+    //ROS_ERROR("Could not read parameter %s on parameter server", full_param.c_str());
     return false;
   }
-  return Model::initString(xml_string);
+  return Model::initString(xml_string);**/
+  return false;
 }
 
 bool Model::initXml(TiXmlDocument *xml_doc)
 {
   if (!xml_doc)
   {
-    ROS_ERROR("Could not parse the xml document");
+    //ROS_ERROR("Could not parse the xml document");
     return false;
   }
 
@@ -124,7 +125,7 @@ bool Model::initXml(TiXmlElement *robot_xml)
 {
   if (!robot_xml)
   {
-    ROS_ERROR("Could not parse the xml element");
+    //ROS_ERROR("Could not parse the xml element");
     return false;
   }
 
@@ -140,7 +141,7 @@ bool Model::initString(const std::string& xml_string)
 
   // necessary for COLLADA compatibility
   if( IsColladaData(xml_string) ) {
-    ROS_DEBUG("Parsing robot collada xml string");
+  /**  //ROS_DEBUG("Parsing robot collada xml string");
 
     static boost::mutex PARSER_PLUGIN_LOCK;
     static boost::scoped_ptr<pluginlib::ClassLoader<urdf::URDFParser> > PARSER_PLUGIN_LOADER;
@@ -167,10 +168,11 @@ bool Model::initString(const std::string& xml_string)
     catch(pluginlib::PluginlibException& ex)
     {
       ROS_ERROR_STREAM("Exception while creating planning plugin loader " << ex.what() << ". Will not parse Collada file.");
-    }
+    }**/
+      return false;
   }
   else {
-    ROS_DEBUG("Parsing robot urdf xml string");
+    //ROS_DEBUG("Parsing robot urdf xml string");
     model = parseURDF(xml_string);
   }
 

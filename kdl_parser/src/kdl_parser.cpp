@@ -37,7 +37,7 @@
 #include "kdl_parser/kdl_parser.hpp"
 #include <urdf/model.h>
 #include <kdl/frames_io.hpp>
-#include <ros/console.h>
+//#include <ros/console.h>
 
 using namespace std;
 using namespace KDL;
@@ -85,7 +85,7 @@ Joint toKdl(boost::shared_ptr<urdf::Joint> jnt)
     return Joint(jnt->name, F_parent_jnt.p, F_parent_jnt.M * axis, Joint::TransAxis);
   }
   default:{
-    ROS_WARN("Converting unknown joint type of joint '%s' into a fixed joint", jnt->name.c_str());
+    //ROS_WARN("Converting unknown joint type of joint '%s' into a fixed joint", jnt->name.c_str());
     return Joint(jnt->name, Joint::None);
   }
   }
@@ -127,7 +127,7 @@ RigidBodyInertia toKdl(boost::shared_ptr<urdf::Inertial> i)
 bool addChildrenToTree(boost::shared_ptr<const urdf::Link> root, Tree& tree)
 {
   std::vector<boost::shared_ptr<urdf::Link> > children = root->child_links;
-  ROS_DEBUG("Link %s had %i children", root->name.c_str(), (int)children.size());
+  //ROS_DEBUG("Link %s had %i children", root->name.c_str(), (int)children.size());
 
   // constructs the optional inertia
   RigidBodyInertia inert(0);
@@ -163,7 +163,7 @@ bool treeFromParam(const string& param, Tree& tree)
 {
   urdf::Model robot_model;
   if (!robot_model.initParam(param)){
-    ROS_ERROR("Could not generate robot model");
+    //ROS_ERROR("Could not generate robot model");
     return false;
   }
   return treeFromUrdfModel(robot_model, tree);
@@ -180,7 +180,7 @@ bool treeFromXml(TiXmlDocument *xml_doc, Tree& tree)
 {
   urdf::Model robot_model;
   if (!robot_model.initXml(xml_doc)){
-    ROS_ERROR("Could not generate robot model");
+    //ROS_ERROR("Could not generate robot model");
     return false;
   }
   return treeFromUrdfModel(robot_model, tree);
@@ -192,8 +192,8 @@ bool treeFromUrdfModel(const urdf::ModelInterface& robot_model, Tree& tree)
   tree = Tree(robot_model.getRoot()->name);
 
   // warn if root link has inertia. KDL does not support this
-  if (robot_model.getRoot()->inertial)
-    ROS_WARN("The root link %s has an inertia specified in the URDF, but KDL does not support a root link with an inertia.  As a workaround, you can add an extra dummy link to your URDF.", robot_model.getRoot()->name.c_str());
+  //if (robot_model.getRoot()->inertial)
+    //ROS_WARN("The root link %s has an inertia specified in the URDF, but KDL does not support a root link with an inertia.  As a workaround, you can add an extra dummy link to your URDF.", robot_model.getRoot()->name.c_str());
 
   //  add all children
   for (size_t i=0; i<robot_model.getRoot()->child_links.size(); i++)
