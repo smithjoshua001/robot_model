@@ -1,13 +1,13 @@
 /*********************************************************************
 * Software License Agreement (BSD License)
-* 
+*
 *  Copyright (c) 2008, Willow Garage, Inc.
 *  All rights reserved.
-* 
+*
 *  Redistribution and use in source and binary forms, with or without
 *  modification, are permitted provided that the following conditions
 *  are met:
-* 
+*
 *   * Redistributions of source code must retain the above copyright
 *     notice, this list of conditions and the following disclaimer.
 *   * Redistributions in binary form must reproduce the above
@@ -17,7 +17,7 @@
 *   * Neither the name of the Willow Garage nor the names of its
 *     contributors may be used to endorse or promote products derived
 *     from this software without specific prior written permission.
-* 
+*
 *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 *  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 *  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
@@ -40,7 +40,7 @@
 #include <string>
 #include <map>
 #include <urdf_model/model.h>
-#include <tinyxml.h>
+#include <tinyxml2.h>
 
 namespace urdf{
 
@@ -48,9 +48,9 @@ class Model: public ModelInterface
 {
 public:
   /// \brief Load Model from TiXMLElement
-  bool initXml(TiXmlElement *xml);
-  /// \brief Load Model from TiXMLDocument
-  bool initXml(TiXmlDocument *xml);
+  // bool initXml(tinyxml2::XMLElement *xml);
+  // /// \brief Load Model from TiXMLDocument
+  // bool initXml(tinyxml2::XMLDocument *xml);
   /// \brief Load Model given a filename
   bool initFile(const std::string& filename);
   /// \brief Load Model given the name of a parameter on the parameter server

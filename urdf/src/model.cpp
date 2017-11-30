@@ -1,13 +1,13 @@
 /*********************************************************************
 * Software License Agreement (BSD License)
-* 
+*
 *  Copyright (c) 2008, Willow Garage, Inc.
 *  All rights reserved.
-* 
+*
 *  Redistribution and use in source and binary forms, with or without
 *  modification, are permitted provided that the following conditions
 *  are met:
-* 
+*
 *   * Redistributions of source code must retain the above copyright
 *     notice, this list of conditions and the following disclaimer.
 *   * Redistributions in binary form must reproduce the above
@@ -17,7 +17,7 @@
 *   * Neither the name of the Willow Garage nor the names of its
 *     contributors may be used to endorse or promote products derived
 *     from this software without specific prior written permission.
-* 
+*
 *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 *  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 *  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
@@ -38,15 +38,13 @@
 
 //#include <ros/ros.h>
 
-/* we include the default parser for plain URDF files; 
+/* we include the default parser for plain URDF files;
    other parsers are loaded via plugins (if available) */
 #include <urdf_parser/urdf_parser.h>
 //#include <urdf_parser_plugin/parser.h>
 //#include <pluginlib/class_loader.h>
 
-#include <boost/algorithm/string.hpp>
-#include <boost/scoped_ptr.hpp>
-#include <boost/thread.hpp>
+#include <memory>
 
 #include <vector>
 #include <fstream>
@@ -90,7 +88,7 @@ bool Model::initParam(const std::string& param)
 {
   /**ros::NodeHandle nh;
   std::string xml_string;
-  
+
   // gets the location of the robot description on the parameter server
   std::string full_param;
   if (!nh.searchParam(param, full_param)){
@@ -107,37 +105,37 @@ bool Model::initParam(const std::string& param)
   return false;
 }
 
-bool Model::initXml(TiXmlDocument *xml_doc)
-{
-  if (!xml_doc)
-  {
-    //ROS_ERROR("Could not parse the xml document");
-    return false;
-  }
-
-  std::stringstream ss;
-  ss << *xml_doc;
-
-  return Model::initString(ss.str());
-}
-
-bool Model::initXml(TiXmlElement *robot_xml)
-{
-  if (!robot_xml)
-  {
-    //ROS_ERROR("Could not parse the xml element");
-    return false;
-  }
-
-  std::stringstream ss;
-  ss << (*robot_xml);
-
-  return Model::initString(ss.str());
-}
+// bool Model::initXml(tinyxml2::XMLDocument *xml_doc)
+// {
+//   if (!xml_doc)
+//   {
+//     //ROS_ERROR("Could not parse the xml document");
+//     return false;
+//   }
+//
+//   std::stringstream ss;
+//   ss << *xml_doc;
+//
+//   return Model::initString(ss.str());
+// }
+//
+// bool Model::initXml(tinyxml2::XMLElement *robot_xml)
+// {
+//   if (!robot_xml)
+//   {
+//     //ROS_ERROR("Could not parse the xml element");
+//     return false;
+//   }
+//
+//   std::stringstream ss;
+//   ss << (*robot_xml);
+//
+//   return Model::initString(ss.str());
+// }
 
 bool Model::initString(const std::string& xml_string)
 {
-  boost::shared_ptr<ModelInterface> model;
+  std::shared_ptr<ModelInterface> model;
 
   // necessary for COLLADA compatibility
   if( IsColladaData(xml_string) ) {
