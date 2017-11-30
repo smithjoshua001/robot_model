@@ -105,20 +105,22 @@ bool Model::initParam(const std::string& param)
   return false;
 }
 
-// bool Model::initXml(tinyxml2::XMLDocument *xml_doc)
-// {
-//   if (!xml_doc)
-//   {
-//     //ROS_ERROR("Could not parse the xml document");
-//     return false;
-//   }
-//
-//   std::stringstream ss;
-//   ss << *xml_doc;
-//
-//   return Model::initString(ss.str());
-// }
-//
+bool Model::initXml(tinyxml2::XMLDocument *xml_doc)
+{
+  if (!xml_doc)
+  {
+    //ROS_ERROR("Could not parse the xml document");
+    return false;
+  }
+
+  std::stringstream ss;
+  tinyxml2::XMLPrinter printer;
+  xml_doc->Print(&printer);
+  ss << printer.CStr();
+
+  return Model::initString(ss.str());
+}
+
 // bool Model::initXml(tinyxml2::XMLElement *robot_xml)
 // {
 //   if (!robot_xml)
@@ -128,6 +130,8 @@ bool Model::initParam(const std::string& param)
 //   }
 //
 //   std::stringstream ss;
+//
+//
 //   ss << (*robot_xml);
 //
 //   return Model::initString(ss.str());

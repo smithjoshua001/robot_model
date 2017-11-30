@@ -50,7 +50,7 @@ public:
   /// \brief Load Model from TiXMLElement
   // bool initXml(tinyxml2::XMLElement *xml);
   // /// \brief Load Model from TiXMLDocument
-  // bool initXml(tinyxml2::XMLDocument *xml);
+  bool initXml(tinyxml2::XMLDocument *xml);
   /// \brief Load Model given a filename
   bool initFile(const std::string& filename);
   /// \brief Load Model given the name of a parameter on the parameter server
